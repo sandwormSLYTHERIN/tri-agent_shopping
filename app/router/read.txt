@@ -1,0 +1,68 @@
+3️⃣ Confidence scoring (why it exists)
+
+Each route returns:
+
+high
+
+medium
+
+low
+
+This allows:
+
+UI hints
+
+Logging
+
+Optional LLM fallback (future)
+
+You do not need to implement fallback now, but the hook exists.
+
+4️⃣ Order ID extraction (important detail)
+
+We:
+
+Extract order IDs using regex
+
+Pass them downstream to the order agent
+
+Reduce back-and-forth (“please provide order ID”)
+
+This improves UX without using AI.
+
+5️⃣ Telemetry / Metrics
+get_intent_metrics()
+
+
+This lets you track:
+
+How many complaints
+
+How many order queries
+
+Traffic patterns
+
+Interview line:
+
+“We added intent-level telemetry for observability and analytics.”
+
+6️⃣ Why product is the default
+
+Product queries are:
+
+Least risky
+
+Most ambiguous
+
+Exploratory by nature
+
+So when confidence is low → product agent is safest.
+
+7️⃣ What this router intentionally does NOT do
+
+❌ No learning
+❌ No embeddings
+❌ No fine-tuning
+❌ No LLM “reasoning”
+
+Say this clearly if challenged.

@@ -1,0 +1,23 @@
+# Core
+python-dotenv>=1.0.0
+
+# LangChain core
+langchain>=0.2.6
+langchain-community>=0.2.6
+langchain-openai>=0.1.7
+
+# OpenAI
+openai>=1.30.0
+
+# Vector store (FAISS)
+faiss-cpu>=1.8.0
+
+# Local LLaMA embeddings / reranker
+llama-cpp-python>=0.2.90
+
+# Data models
+pydantic>=2.6.0
+
+# Utilities
+tqdm>=4.66.0
+numpy>=1.26.0

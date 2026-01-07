@@ -1,0 +1,126 @@
+Each file here defines one constrained LangChain agent.
+
+1. agents/order_agent.py
+What this agent does
+
+Handles order tracking only
+
+Fetches order status from DB
+
+Formats response into structured JSON
+
+Why this file exists
+
+Order tracking is high-risk:
+
+Wrong status = user complaint
+
+Hallucination is unacceptable
+
+Key design decisions
+
+Uses GPT-4o-mini (cheap, deterministic)
+
+temperature=0
+
+Tool-only grounding (get_order_status)
+
+Short-term memory (for follow-ups)
+
+Schema validation using Pydantic
+
+Retry + fallback handling
+
+What it NEVER does
+
+❌ Guess order status
+❌ Handle complaints
+❌ Recommend products
+
+How to explain in interview
+
+“The order agent is strictly tool-grounded. The LLM only formats database output and cannot generate order information independently.”
+
+3. agents/complaint_agent.py
+What this agent does
+
+Understands user complaints
+
+Creates a complaint ticket
+
+Responds according to company policy
+
+Why this agent is separate
+
+Complaint handling:
+
+Is policy-sensitive
+
+Has legal implications
+
+Needs careful language
+
+Key design decisions
+
+Uses GPT-4o (better language control)
+
+Forces ticket creation every time
+
+Fetches official policy text
+
+Never promises refunds or timelines
+
+Structured JSON output
+
+Logging for auditability
+
+What it NEVER does
+
+❌ Make compensation promises
+❌ Resolve tickets autonomously
+❌ Change order status
+
+Interview explanation
+
+“The complaint agent is constrained by policy tools to ensure compliance and prevent unsafe commitments.”
+
+2. agents/product_agent.py
+What this agent does
+
+Understands product queries
+
+Performs semantic product search
+
+Explains and compares results
+
+Why it needs an agent
+
+Product queries are:
+
+Open-ended
+
+Require semantic understanding
+
+Need natural language explanation
+
+Key design decisions
+
+Uses GPT-4o
+
+Product search always goes through vector DB
+
+LLM never invents products
+
+Clear comparison-style responses
+
+Memory for follow-ups (“show cheaper ones”)
+
+What it NEVER does
+
+❌ Invent pricing or discounts
+❌ Claim stock availability
+❌ Access order data
+
+Interview explanation
+
+“The product agent uses LLMs for semantic understanding while grounding recommendations in vector-based product retrieval.”
